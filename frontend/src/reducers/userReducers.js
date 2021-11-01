@@ -1,9 +1,14 @@
-import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_LOGIN_FAIL,
+import { USER_DETAILS_FAIL,
+         USER_DETAILS_REQUEST, 
+         USER_DETAILS_SUCCESS,
+         USER_DETAILS_RESET, 
+         USER_LOGIN_FAIL,
          USER_LOGIN_REQUEST, 
          USER_LOGIN_SUCCESS, 
          USER_LOGOUT, 
          USER_REGISTER_REQUEST, 
-         USER_REGISTER_SUCCESS} from "../constants/userConstants.js"
+         USER_REGISTER_SUCCESS,
+        USER_REGISTER_FAIL} from "../constants/userConstants.js"
 
 export const userLoginReducer = ( state = {}, action) => { //action is a Object with type
     switch(action.type) {
@@ -20,29 +25,32 @@ export const userLoginReducer = ( state = {}, action) => { //action is a Object 
     }
 }
 
-export const userRegisterReducer = ( state = {}, action) => { //action is a Object with type
-    switch(action.type) {
-        case USER_REGISTER_REQUEST:
-            return{loading: true, products:[]}
-        case USER_REGISTER_SUCCESS:
-            return{loading:false, userInfo: action.payload}
-        case USER_REGISTER_SUCCESS:
-            return{loading:false, error: action.payload}
-        default:
-            return state
+export const userRegisterReducer = (state = {}, action) => {
+    switch (action.type) {
+      case USER_REGISTER_REQUEST:
+        return { loading: true }
+      case USER_REGISTER_SUCCESS:
+        return { loading: false, userInfo: action.payload }
+      case USER_REGISTER_FAIL:
+        return { loading: false, error: action.payload }
+      case USER_LOGOUT:
+        return {}
+      default:
+        return state
+    }
+  }
+  
+export const userDetailsReducer = (state = { user: {} }, action) => {
+    switch (action.type) {
+      case USER_DETAILS_REQUEST:
+        return { ...state, loading: true }
+      case USER_DETAILS_SUCCESS:
+        return { loading: false, user: action.payload }
+      case USER_DETAILS_FAIL:
+        return { loading: false, error: action.payload }
+      case USER_DETAILS_RESET:
+        return { user: {} }
+      default:
+        return state
     }
 }
-
-export const userDetailsReducer = ( state = {user:{}}, action) => { //action is a Object with type
-    switch(action.type) {
-        case USER_DETAILS_REQUEST:
-            return{...state,loading: true}
-        case USER_DETAILS_SUCCESS:
-            return{loading:false, userInfo: action.payload}
-        case USER_DETAILS_FAIL:
-            return{loading:false, error: action.payload}
-        default:
-            return state
-    }
-}
-

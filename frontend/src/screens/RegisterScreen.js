@@ -11,8 +11,7 @@ import FormContainer from '../components/FormContainer.js'
 const RegisterScreen = ({location, history}) => {
 
     const [username, setUsername] = useState('')
-    const [publicname, setPublicname] = useState('')
-    const [role, setRole] = useState('')
+    const [name, setName] = useState('')
     const [country, setCountry] = useState('')
     const [city, setCity] = useState('')
     const [email, setEmail] = useState('')
@@ -44,9 +43,7 @@ const RegisterScreen = ({location, history}) => {
         if(password !== confirmPassword){
             setMessage('Passwords do not match')
         }else{  
-        dispatch(register(username, email, 
-                        password, publicname, 
-                        role, country, city))}
+        dispatch(register(username, email, password, name, country, city))}
     }
 
     return (
@@ -64,10 +61,10 @@ const RegisterScreen = ({location, history}) => {
                     onChange={(e) => setUsername(e.target.value)}></Form.Control>
                 </Form.Group>
 
-                <Form.Group controlId='publicname'>
+                <Form.Group controlId='name'>
                     <Form.Label>Public Name</Form.Label>
-                    <Form.Control type='publicname' placeholder='Enter Public Name' value={publicname}
-                    onChange={(e) => setPublicname(e.target.value)}></Form.Control>
+                    <Form.Control type='name' placeholder='Enter Public Name' value={name}
+                    onChange={(e) => setName(e.target.value)}></Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId='country'>
@@ -102,12 +99,10 @@ const RegisterScreen = ({location, history}) => {
 
              
                
-                
-                
-
                 <Button type='submit' variant='primary'>
                     Register
                 </Button>
+
             </Form>
             <Row className='py-4'>
                 <Col>
