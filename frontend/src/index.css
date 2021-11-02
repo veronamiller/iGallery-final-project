@@ -15,7 +15,10 @@ h2{
   font-size: 1.4rem;
   padding: 2rem 0;
 }
-
+h4{
+  padding:1rem 0;
+  text-align: center;
+}
 h6{
   padding: 1rem 0;
 }
