@@ -1,12 +1,14 @@
-import React, {useState}from 'react'
+import React, { useState,useEffect}from 'react'
 import { Link } from 'react-router-dom'
 import { Button,Row, Col, ListGroup, Image, Card}from'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps.js'
+import {createOrder} from '../actions/orderActions.js'
 
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = ({ history }) => {
+    const dispatch = useDispatch()
 
     const cart = useSelector((state) => state.cart)
     
@@ -18,14 +20,32 @@ const PlaceOrderScreen = () => {
     cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 50 : 100)
     cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)))
     cart.totalPrice = addDecimals(Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice))
+
+    const orderCreate = useSelector((state) => state.orderCreate)
+    const {order, success, error} = orderCreate
     
- 
+    useEffect(() => {
+        if(success){
+            history.push(`/order/${order._id}`)
+        }
+        // eslint-disable-next-line
+    },[history,success, order])
 
     const placeOrderHandler = () => {
-        console.log('order')
+        dispatch(createOrder({
+            orderItems: cart.cartItems,
+            shippingAddress: cart.shippingAddress,
+            paymentMethod: cart.paymentMethod,
+            itemsPrice: cart.itemsPrice,
+            shippingPrice: cart.shippingPrice,
+            taxPrice: cart.taxPrice,
+            totalPrice: cart.totalPrice
+
+        }))
+       
     }
     return (
-        <div>
+        <>
             <CheckoutSteps step1 step2 step3/>
             <Row>
                 <Col md={8}>
@@ -33,9 +53,10 @@ const PlaceOrderScreen = () => {
                         <ListGroup.Item>
                             <h2>Shipping</h2>
                             <p>
-                                <strong>Address:</strong>
+                                <strong>Address: </strong>
                                 <p>
                                 {cart.shippingAddress.address},
+                                {cart.shippingAddress.city},
                                 {cart.shippingAddress.postalCode},
                                 {cart.shippingAddress.country}
                                 </p>
@@ -45,7 +66,7 @@ const PlaceOrderScreen = () => {
 
                         <ListGroup.Item>
                             <h2>Payment Method</h2>
-                            <strong>Method:</strong>
+                            <strong>Method: </strong>
                             <p>
                             {cart.paymentMethod}
                             </p>
@@ -88,28 +109,31 @@ const PlaceOrderScreen = () => {
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
-                                    <Col>Items</Col>
-                                    <Col>{cart.itemsPrice} €</Col>
+                                    <Col>Items: </Col>
+                                    <Col>{cart.itemsPrice}€</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
-                                    <Col>Shipping</Col>
-                                    <Col>{cart.shippingPrice} €</Col>
+                                    <Col>Shipping: </Col>
+                                    <Col>{cart.shippingPrice}€</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
-                                    <Col>Tax</Col>
-                                    <Col>{cart.taxPrice} €</Col>
+                                    <Col>Tax: </Col>
+                                    <Col>{cart.taxPrice}€</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
-                                    <Col>Total</Col>
-                                    <Col>{cart.totalPrice} €</Col>
+                                    <Col>Total: </Col>
+                                    <Col>{cart.totalPrice}€</Col>
                                 </Row>
                             </ListGroup.Item>
+                             
+                            {error && <Message variant='danger'>{error}</Message>}
+                            
                             <ListGroup.Item>
                                 <Button type='button' className='btn-block' disabled={cart.cartItems === 0}
                                 onClick={placeOrderHandler}>Place Order</Button>
@@ -119,7 +143,7 @@ const PlaceOrderScreen = () => {
                     </Card>
                 </Col>
             </Row>
-        </div>
+        </>
     )
 }
 

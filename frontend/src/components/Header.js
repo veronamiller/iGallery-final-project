@@ -16,7 +16,7 @@ const Header = () => {
   }
 
     return (
-      <div class="header">
+      <div className="header">
         <Navbar variante='dark' expand="lg" collapseOnSelect>      
           <Container> 
           <NavbarBrand className="name">iGALLERY</NavbarBrand>
