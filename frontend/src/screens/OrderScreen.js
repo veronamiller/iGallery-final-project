@@ -2,7 +2,7 @@ import React, { useState,useEffect}from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {PayPalButton} from 'react-paypal-button-v2'
-import { Button,Row, Col, ListGroup, Image, Card}from'react-bootstrap'
+import {Row, Col, ListGroup, Image, Card}from'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -25,13 +25,16 @@ const OrderScreen = ({ match }) => {
     const orderPay = useSelector((state) => state.orderPay)
     const {loading: loadingPay, success: successPay} = orderPay 
 
-    if(!loading){
+    if (!loading) {
+        //   Calculate prices
         const addDecimals = (num) => {
-            return (Math.round(num * 100) / 100).toFixed(2)
+          return (Math.round(num * 100) / 100).toFixed(2)
         }
-        //calculate prices
-        order.itemsPrice = addDecimals(order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0))
-    }
+    
+        order.itemsPrice = addDecimals(
+          order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+        )
+      }
 
    // to get paypal script, request
    // adding paypal script
