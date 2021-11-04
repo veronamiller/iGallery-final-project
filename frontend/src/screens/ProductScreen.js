@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { Row, Col, Image, ListGroup, Card, Button, Form} from 'react-bootstrap'
 import { listProductDetails } from '../actions/productActions'
-import { productListReducer } from '../reducers/productReducers'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 
