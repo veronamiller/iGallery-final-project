@@ -10,7 +10,6 @@ const ShippingScreen = ({history}) => {
     const cart = useSelector((state) => state.cart)
     const {shippingAddress} = cart
 
-
     const [address, setAddress] = useState(shippingAddress.address)
     const [city, setCity] = useState(shippingAddress.city)
     const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
@@ -28,7 +27,8 @@ const ShippingScreen = ({history}) => {
             <CheckoutSteps step1/>
           <h2>Shipping</h2>
           <Form onSubmit={submitHandler}>
-          <Form.Group controlId='address'>
+
+                <Form.Group controlId='address'>
                     <Form.Label>Address</Form.Label>
                     <Form.Control type='text' placeholder='Enter Address' value={address} required
                     onChange={(e) => setAddress(e.target.value)}></Form.Control>

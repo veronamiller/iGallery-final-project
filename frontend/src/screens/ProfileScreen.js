@@ -65,9 +65,9 @@ const ProfileScreen = ({ history}) => {
     }
 
     return (
-    <Row>
-        <Col md={3}>
-        <h2>User Profile</h2>
+    <Row className='justify-content-center'>
+        <Col md={5} >
+        <h4>User Profile</h4>
             {message && <Message variant='danger'>{message}</Message>}
             {error && <Message variant='danger'>
             {error}</Message>}
@@ -128,7 +128,7 @@ const ProfileScreen = ({ history}) => {
         </Col>
 
         <Col md={9}>
-            <h2>My Artworks</h2>
+            <h2></h2>
         </Col>
     </Row>
     )

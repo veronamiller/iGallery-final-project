@@ -19,7 +19,11 @@ const Header = () => {
       <div className="header">
         <Navbar variante='dark' expand="lg" collapseOnSelect>      
           <Container> 
-          <NavbarBrand className="name">iGALLERY</NavbarBrand>
+          <NavbarBrand className="name">
+            <Nav.Link href="/">
+            iGALLERY
+            </Nav.Link>
+            </NavbarBrand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
