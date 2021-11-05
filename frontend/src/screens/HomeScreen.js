@@ -6,6 +6,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProducts } from '../actions/productActions'
 import Paginate from '../components/Paginate'
+import ProductCarousel from '../components/ProductCarousel'
 
 const HomeScreen = ({match}) => {
     const pageNumber = match.params.pageNumber || 1
@@ -22,9 +23,11 @@ const HomeScreen = ({match}) => {
 
 
     return (
+        
         <div>
-            <h2>Welcome to iGallery</h2>
-            <h4>Latest Artworks</h4>
+            {!keyword && <ProductCarousel/>}
+            <h4>Welcome to iGallery</h4>
+            <h5>Latest Artworks</h5>
             {loading ? (
             <Loader/>
             ): error ? (

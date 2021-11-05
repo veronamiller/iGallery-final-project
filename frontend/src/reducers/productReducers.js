@@ -89,3 +89,5 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
         return state
     }
   }
+
+  
