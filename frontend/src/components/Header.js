@@ -1,8 +1,10 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
 import {Navbar, Nav, Container, NavbarBrand, NavDropdown} from 'react-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
 import { logout } from '../actions/userActions'
+import SearchBar from './SearchBar'
 
 const Header = () => {
 
@@ -26,6 +28,9 @@ const Header = () => {
             </NavbarBrand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+
+            <Route render={({history}) => <SearchBar history={history}/>} />
+            
             <Nav className="ml-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <LinkContainer to='/register'>
